@@ -12,7 +12,7 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: True  # [py<38]
   entry_points:
     - grayskull = grayskull.__main__:main
     - greyskull = grayskull.__main__:main
@@ -21,41 +21,41 @@ build:
 
 outputs:
   - name: grayskull
-    script: build_base.sh
-    build:
-      noarch: python
+    script: build_base.bat  # [win]
+    script: build_base.sh   # [unix]
     requirements:
       host:
         - pip
-        - python >=3.8
-        - setuptools >=30.3.0
+        - python
+        - setuptools
         - setuptools_scm
+        - wheel
       run:
-        - python >=3.8
+        - python
+        - beautifulsoup4
+        - colorama
+        - conda-souschef >=2.2.3
+        - packaging >=21.3
+        - pip
+        - pkginfo
+        - progressbar2 >=3.53.0
+        - rapidfuzz >=1.7.1
         - requests
         - ruamel.yaml >=0.16.10
         - ruamel.yaml.jinja2
-        - stdlib-list
-        - pip
         - setuptools >=30.3.0
-        - rapidfuzz >=1.7.1
-        - progressbar2 >=3.53.0
-        - colorama
-        - conda-souschef >=2.2.3
-        - pkginfo
-        - packaging >=21.3
+        - stdlib-list
         - tomli
         - tomli-w
-        - beautifulsoup4
     test:
       imports:
         - grayskull
+      requires:
+        - pip
       commands:
         - pip check
         - grayskull --help
         - greyskull --help
-      requires:
-        - pip
 
   - name: greyskull
     build:
@@ -71,10 +71,16 @@ outputs:
         - greyskull --help
 
 about:
-  home: https://pypi.org/project/grayskull/
+  home: https://github.com/conda/grayskull
   summary: Project to generate recipes for conda.
-  dev_url: https://github.com/conda-incubator/grayskull
+  description: |
+    Grayskull is an automatic conda recipe generator.
+    The main goal of this project is to generate concise recipes for conda-forge. 
+    The Grayskull project was created with the intention to eventually replace conda skeleton.
+  dev_url: https://github.com/conda/grayskull
+  doc_url: https://github.com/conda/grayskull/blob/main/README.md
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
 
 extra:
