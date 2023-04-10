@@ -17,14 +17,6 @@ build:
     - greyskull = grayskull.__main__:main
     - conda-grayskull = grayskull.__main__:main
     - conda-greyskull = grayskull.__main__:main
-  
-requirements:
-  host:
-    - pip
-    - python
-    - setuptools
-    - setuptools_scm
-    - wheel
 
 outputs:
   - name: grayskull
@@ -36,6 +28,7 @@ outputs:
         - python
         - setuptools
         - setuptools_scm
+        - toml
         - wheel
       run:
         - python
@@ -50,7 +43,7 @@ outputs:
         - requests
         - ruamel.yaml >=0.16.10
         - ruamel.yaml.jinja2
-        - semver
+        - semver >=2.13.0,<3.0.0
         - setuptools >=30.3.0
         - stdlib-list
         - tomli
@@ -74,6 +67,7 @@ outputs:
         - python
         - setuptools
         - setuptools_scm
+        - toml
         - wheel
       run:
         - python
