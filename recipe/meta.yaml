@@ -53,10 +53,7 @@ outputs:
         - grayskull
       requires:
         - pip
-      commands:
-        - pip check
-        - grayskull --help
-        - greyskull --help
+      # Test commands are in scripts run_test.bat and run_test.sh
 
   - name: greyskull
     build:
@@ -75,9 +72,9 @@ outputs:
     test:
       imports:
         - grayskull
-      commands:
-        - grayskull --help
-        - greyskull --help
+      requires:
+        - pip
+      # Test commands are in scripts run_test.bat and run_test.sh
 
 about:
   home: https://github.com/conda/grayskull
