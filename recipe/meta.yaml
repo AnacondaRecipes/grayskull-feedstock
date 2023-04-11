@@ -2,7 +2,7 @@
 {% set version = "2.3.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
@@ -95,3 +95,6 @@ about:
 extra:
   recipe-maintainers:
     - marcelotrevisani
+  skip-lints:
+    - python_build_tool_in_run
+    - missing_pip_check
