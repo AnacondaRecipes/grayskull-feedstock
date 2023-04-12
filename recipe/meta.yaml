@@ -83,6 +83,7 @@ outputs:
       requires:
         - pip
       commands:
+        - where python  # [win]
         - python -m pip install --upgrade pip  # [win]
         - pip check
         - grayskull --help
