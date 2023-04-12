@@ -82,9 +82,8 @@ outputs:
         - grayskull
       requires:
         - pip
-        - python
       commands:
-        - python3 -m pip install --upgrade pip  # [win]
+        - python -m pip install --upgrade pip  # [win]
         - pip check
         - grayskull --help
         - greyskull --help
