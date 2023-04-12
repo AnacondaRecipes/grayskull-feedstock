@@ -12,11 +12,6 @@ source:
 build:
   number: 0
   skip: True  # [py<38]
-  entry_points:
-    - grayskull = grayskull.__main__:main
-    - greyskull = grayskull.__main__:main
-    - conda-grayskull = grayskull.__main__:main
-    - conda-greyskull = grayskull.__main__:main
 
 requirements:
   host:
@@ -26,24 +21,6 @@ requirements:
     - setuptools_scm
     - toml
     - wheel
-  run:
-    - python
-    - beautifulsoup4
-    - colorama
-    - conda-souschef >=2.2.3
-    - packaging >=21.3
-    - pip
-    - pkginfo
-    - progressbar2 >=3.53.0
-    - rapidfuzz >=1.7.1
-    - requests
-    - ruamel.yaml >=0.16.10
-    - ruamel.yaml.jinja2
-    - semver >=2.13.0,<3.0.0
-    - setuptools >=30.3.0
-    - stdlib-list
-    - tomli
-    - tomli-w
 
 outputs:
   - name: grayskull
@@ -51,6 +28,11 @@ outputs:
     script: build_base.sh   # [unix]
     build:
       skip: True  # [py<38]
+      entry_points:
+        - grayskull = grayskull.__main__:main
+        - greyskull = grayskull.__main__:main
+        - conda-grayskull = grayskull.__main__:main
+        - conda-greyskull = grayskull.__main__:main
     requirements:
       host:
         - pip
@@ -84,7 +66,6 @@ outputs:
         - pip
       commands:
         - where python  # [win]
-        - SET PYTHONPATH=%PREFIX%\python.exe  # [win]
         - pip check
         - grayskull --help
         - greyskull --help
