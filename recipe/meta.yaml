@@ -65,7 +65,6 @@ outputs:
       requires:
         - pip
       commands:
-        - where python  # [win]
         - pip check
         - grayskull --help
         - greyskull --help
