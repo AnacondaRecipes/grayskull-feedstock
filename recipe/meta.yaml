@@ -84,6 +84,7 @@ outputs:
         - pip
         - python
       commands:
+        - python3 -m pip install --upgrade pip  # [win]
         - pip check
         - grayskull --help
         - greyskull --help
