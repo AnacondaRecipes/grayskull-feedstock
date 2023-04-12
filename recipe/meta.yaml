@@ -84,7 +84,7 @@ outputs:
         - pip
       commands:
         - where python  # [win]
-        - python -m pip install --upgrade pip  # [win]
+        - SET PYTHONPATH=%PREFIX%\python.exe  # [win]
         - pip check
         - grayskull --help
         - greyskull --help
