@@ -27,7 +27,6 @@ outputs:
     script: build_base.bat  # [win]
     script: build_base.sh   # [unix]
     build:
-      skip: True  # [py<38]
       entry_points:
         - grayskull = grayskull.__main__:main
         - greyskull = grayskull.__main__:main
