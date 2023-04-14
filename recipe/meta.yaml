@@ -1,34 +1,44 @@
 {% set name = "grayskull" %}
-{% set version = "2.2.2" %}
-
+{% set version = "2.3.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ae97e60742f779ab93888ab074533eddbe2db5ad96792fe8d9748217400de0d8
+  sha256: 826702c4165731c044d30af49230a761ffc753bda8f6be38be9be642fd367037
 
 build:
   number: 0
   skip: True  # [py<38]
-  entry_points:
-    - grayskull = grayskull.__main__:main
-    - greyskull = grayskull.__main__:main
-    - conda-grayskull = grayskull.__main__:main
-    - conda-greyskull = grayskull.__main__:main
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+    - setuptools_scm
+    - toml
+    - wheel
 
 outputs:
   - name: grayskull
     script: build_base.bat  # [win]
     script: build_base.sh   # [unix]
+    build:
+      entry_points:
+        - grayskull = grayskull.__main__:main
+        - greyskull = grayskull.__main__:main
+        - conda-grayskull = grayskull.__main__:main
+        - conda-greyskull = grayskull.__main__:main
     requirements:
       host:
         - pip
         - python
         - setuptools
         - setuptools_scm
+        - toml
         - wheel
       run:
         - python
@@ -43,6 +53,7 @@ outputs:
         - requests
         - ruamel.yaml >=0.16.10
         - ruamel.yaml.jinja2
+        - semver >=2.13.0,<3.0.0
         - setuptools >=30.3.0
         - stdlib-list
         - tomli
@@ -61,7 +72,15 @@ outputs:
     build:
       noarch: generic
     requirements:
+      host:
+        - pip
+        - python
+        - setuptools
+        - setuptools_scm
+        - toml
+        - wheel
       run:
+        - python
         - {{ pin_subpackage('grayskull', max_pin="x.x.x") }}
     test:
       imports:
@@ -86,3 +105,6 @@ about:
 extra:
   recipe-maintainers:
     - marcelotrevisani
+  skip-lints:
+    - python_build_tool_in_run
+    - missing_pip_check
