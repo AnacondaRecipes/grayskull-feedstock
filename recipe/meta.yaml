@@ -1,5 +1,5 @@
 {% set name = "grayskull" %}
-{% set version = "2.6.0" %}
+{% set version = "2.9.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,20 +7,15 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 39ec33a74b716c4e3ed876733669866f1b0743a242e16255e772e793598cb2dd
+  sha256: 348e3b7cf994ddfec6775d18556ddd3a39df77ddb2855f861a97330a256826b9
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: True  # [py<310]
 
 requirements:
   host:
-    - pip
     - python
-    - setuptools
-    - setuptools_scm
-    - toml
-    - wheel
 
 outputs:
   - name: grayskull
@@ -53,10 +48,9 @@ outputs:
         - requests
         - ruamel.yaml >=0.16.10
         - ruamel.yaml.jinja2
-        - semver >=3.0.0,<4.0.0
         - setuptools >=30.3.0
         - stdlib-list
-        - tomli
+        - tomli  # [py<311]
         - tomli-w
     test:
       imports:
