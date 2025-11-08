@@ -1,17 +1,17 @@
 {% set name = "grayskull" %}
-{% set version = "2.9.1" %}
+{% set version = "2.9.2" %}
 
 package:
   name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 348e3b7cf994ddfec6775d18556ddd3a39df77ddb2855f861a97330a256826b9
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 874890191b1999bfde97b09ac6d37dae4636aa87a9dd2ee1bf10e748ffba20ef
 
 build:
   number: 0
-  skip: True  # [py<310]
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -20,7 +20,7 @@ requirements:
 outputs:
   - name: grayskull
     script: build_base.bat  # [win]
-    script: build_base.sh   # [unix]
+    script: build_base.sh  # [unix]
     build:
       entry_points:
         - grayskull = grayskull.__main__:main
@@ -61,7 +61,6 @@ outputs:
         - pip check
         - grayskull --help
         - greyskull --help
-
   - name: greyskull
     build:
       noarch: generic
