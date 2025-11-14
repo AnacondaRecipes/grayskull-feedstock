@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 874890191b1999bfde97b09ac6d37dae4636aa87a9dd2ee1bf10e748ffba20ef
+  url: https://github.com/conda/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: e3d8afd8ccd8dce1f6f3c75dcf1697a72c1a41fbdf64233d1b958514265da26a
 
 build:
   number: 0
@@ -19,9 +19,8 @@ requirements:
 
 outputs:
   - name: grayskull
-    script: build_base.bat  # [win]
-    script: build_base.sh  # [unix]
     build:
+      script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
       entry_points:
         - grayskull = grayskull.__main__:main
         - greyskull = grayskull.__main__:main
@@ -31,8 +30,8 @@ outputs:
       host:
         - pip
         - python
-        - setuptools
-        - setuptools_scm
+        - setuptools >=61
+        - setuptools_scm >=6.2
         - toml
         - wheel
       run:
@@ -52,15 +51,33 @@ outputs:
         - stdlib-list
         - tomli  # [py<311]
         - tomli-w
+
+    {% set deselect_tests = [
+      "--deselect=tests/test_pypi.py::test_injection_distutils_pytest",
+      "--deselect=tests/test_pypi.py::test_mypy_deps_normalization_and_entry_points",
+      "--deselect=tests/test_pypi.py::test_sequence_inside_another_in_dependencies"
+    ]%}
     test:
+      source_files:
+        - tests
+        - grayskull
+        - pyproject.toml
+        - pytest.ini
       imports:
         - grayskull
+        - grayskull.base
+        - grayskull.strategy
       requires:
         - pip
+        - pytest
+        - numpy
+        - pytest-mock
       commands:
         - pip check
         - grayskull --help
         - greyskull --help
+        - pytest -v {{ deselect_tests | join(" ") }}
+
   - name: greyskull
     build:
       noarch: generic
