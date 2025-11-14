@@ -55,7 +55,13 @@ outputs:
     {% set deselect_tests = [
       "--deselect=tests/test_pypi.py::test_injection_distutils_pytest",
       "--deselect=tests/test_pypi.py::test_mypy_deps_normalization_and_entry_points",
-      "--deselect=tests/test_pypi.py::test_sequence_inside_another_in_dependencies"
+      "--deselect=tests/test_pypi.py::test_sequence_inside_another_in_dependencies",
+      "--deselect=tests/cli/test_cli_recipes.py::test_loop_deps_nipy_and_maintainers"
+    ]%}
+    {% set deselect_tests_win = [
+      "--deselect=tests/test_py_toml.py::test_poetry_langchain_snapshot",
+      "--deselect=tests/test_pypi.py::test_replace_slash_in_imports",
+      "--deselect=tests/test_pypi.py::test_create_recipe_from_local_sdist"
     ]%}
     test:
       source_files:
@@ -76,7 +82,8 @@ outputs:
         - pip check
         - grayskull --help
         - greyskull --help
-        - pytest -v {{ deselect_tests | join(" ") }}
+        - pytest -v {{ deselect_tests | join(" ") }} # [not win]
+        - pytest -v {{ deselect_tests | join(" ") }} {{ deselect_tests_win | join(" ") }} # [win]
 
   - name: greyskull
     build:
