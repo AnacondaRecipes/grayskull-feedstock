@@ -52,6 +52,8 @@ outputs:
         - tomli  # [py<311]
         - tomli-w
 
+    # E AssertionError: assert [pip, python >=3.6] == ['argparse', ... 'traceback2']
+    # E Right contains 10 more items, first extra item: 'atomicwrites>=1.0;sys_platform=="win32"'
     {% set deselect_tests = [
       "--deselect=tests/test_pypi.py::test_injection_distutils_pytest",
       "--deselect=tests/test_pypi.py::test_mypy_deps_normalization_and_entry_points",
@@ -92,10 +94,6 @@ outputs:
       host:
         - pip
         - python
-        - setuptools
-        - setuptools_scm
-        - toml
-        - wheel
       run:
         - python
         - {{ pin_subpackage('grayskull', max_pin="x.x.x") }}
