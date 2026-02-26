@@ -1,5 +1,5 @@
 {% set name = "grayskull" %}
-{% set version = "2.9.2" %}
+{% set version = "3.1.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/conda/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: e3d8afd8ccd8dce1f6f3c75dcf1697a72c1a41fbdf64233d1b958514265da26a
+  sha256: 2ea9376e1aca8147e1329d96a451a27ceb00aa2a86e2026e13b16184974349ab
 
 build:
   number: 0
@@ -38,7 +38,7 @@ outputs:
         - python
         - beautifulsoup4
         - colorama
-        - conda-souschef >=2.2.3
+        - conda-souschef >=3.0.1
         - packaging >=21.3
         - pip
         - pkginfo
@@ -58,12 +58,16 @@ outputs:
       "--deselect=tests/test_pypi.py::test_injection_distutils_pytest",
       "--deselect=tests/test_pypi.py::test_mypy_deps_normalization_and_entry_points",
       "--deselect=tests/test_pypi.py::test_sequence_inside_another_in_dependencies",
-      "--deselect=tests/cli/test_cli_recipes.py::test_loop_deps_nipy_and_maintainers"
+      "--deselect=tests/cli/test_cli_recipes.py::test_loop_deps_nipy_and_maintainers",
+      # httplib2shim=0.0.3 Don`t have a license file in PyPI
+      "--deselect=tests/cli/test_cli_cmds.py::test_license_discovery"
     ]%}
     {% set deselect_tests_win = [
       "--deselect=tests/test_py_toml.py::test_poetry_langchain_snapshot",
       "--deselect=tests/test_pypi.py::test_replace_slash_in_imports",
-      "--deselect=tests/test_pypi.py::test_create_recipe_from_local_sdist"
+      "--deselect=tests/test_pypi.py::test_create_recipe_from_local_sdist",
+      # httplib2shim=0.0.3 Don`t have a license file in PyPI
+      "--deselect=tests/cli/test_cli_cmds.py::test_license_discovery"
     ]%}
     test:
       source_files:
