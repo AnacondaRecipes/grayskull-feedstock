@@ -70,7 +70,7 @@ outputs:
     {% set deselect_tests_win = [
       "--deselect=gh_src/tests/test_py_toml.py::test_poetry_langchain_snapshot",
       "--deselect=gh_src/tests/test_pypi.py::test_replace_slash_in_imports",
-      "--deselect=gh_src/ests/test_pypi.py::test_create_recipe_from_local_sdist",
+      "--deselect=gh_src/tests/test_pypi.py::test_create_recipe_from_local_sdist",
       # httplib2shim=0.0.3 Don`t have a license file in PyPI
       "--deselect=gh_src/tests/cli/test_cli_cmds.py::test_license_discovery"
     ]%}
