@@ -6,11 +6,15 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/conda/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 2ea9376e1aca8147e1329d96a451a27ceb00aa2a86e2026e13b16184974349ab
+  - url: https://pypi.org/packages/source/g/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: 6ccbcc7455c08b68d95ed880fe486d87ad321ee483ccb375bfd8163c19a0fdfa
+
+  - url: https://github.com/conda/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: 2ea9376e1aca8147e1329d96a451a27ceb00aa2a86e2026e13b16184974349ab
+    folder: gh_src
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<310]
 
 requirements:
@@ -71,14 +75,18 @@ outputs:
     ]%}
     test:
       source_files:
-        - tests
-        - grayskull
-        - pyproject.toml
-        - pytest.ini
+        - gh_src/tests
+        - gh_src/grayskull
+        - gh_src/pyproject.toml
+        - gh_src/pytest.ini
       imports:
         - grayskull
         - grayskull.base
+        - grayskull.cli
+        - grayskull.config
+        - grayskull.license
         - grayskull.strategy
+        - grayskull.utils
       requires:
         - pip
         - pytest
@@ -88,8 +96,8 @@ outputs:
         - pip check
         - grayskull --help
         - greyskull --help
-        - pytest -v {{ deselect_tests | join(" ") }} # [not win]
-        - pytest -v {{ deselect_tests | join(" ") }} {{ deselect_tests_win | join(" ") }} # [win]
+        - pytest -ra -v {{ deselect_tests | join(" ") }} # [not win]
+        - pytest -ra -v {{ deselect_tests | join(" ") }} {{ deselect_tests_win | join(" ") }} # [win]
 
   - name: greyskull
     build:
@@ -100,7 +108,7 @@ outputs:
         - python
       run:
         - python
-        - {{ pin_subpackage('grayskull', max_pin="x.x.x") }}
+        - {{ pin_subpackage('grayskull', exact=True) }}
     test:
       imports:
         - grayskull
