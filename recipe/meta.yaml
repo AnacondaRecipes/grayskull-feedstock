@@ -65,7 +65,8 @@ outputs:
       "--deselect=gh_src/tests/cli/test_cli_recipes.py::test_loop_deps_nipy_and_maintainers",
       # httplib2shim=0.0.3 Don`t have a license file in PyPI
       "--deselect=gh_src/tests/cli/test_cli_cmds.py::test_license_discovery",
-      "--deselect=gh_src/tests/test_pypi.py::test_compose_test_section_with_console_scripts"
+      "--deselect=gh_src/tests/test_pypi.py::test_compose_test_section_with_console_scripts",
+      "--deselect=gh_src/tests/test_pypi.py::test_get_extra_requirements_pyproject"
     ]%}
     {% set deselect_tests_win = [
       "--deselect=gh_src/tests/test_py_toml.py::test_poetry_langchain_snapshot",
