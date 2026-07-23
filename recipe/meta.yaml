@@ -131,5 +131,5 @@ extra:
   recipe-maintainers:
     - marcelotrevisani
   skip-lints:
-    - python_build_tool_in_run
+    - python_build_tools_in_host
     - missing_pip_check
